@@ -4,6 +4,9 @@ A children's book library web application built with React, featuring wooden boo
 
 ![Chalky Library](https://img.shields.io/badge/React-19-blue) ![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue) ![Tailwind](https://img.shields.io/badge/Tailwind-4.1-blue)
 
+
+
+
 ## Features
 
 - **UI** - Sky gradient with yellow sun glow, floating animated clouds, rolling green hills, and a unified wooden bookcase
