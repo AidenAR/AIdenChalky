@@ -4,8 +4,12 @@ A children's book library web application built with React, featuring wooden boo
 
 ![Chalky Library](https://img.shields.io/badge/React-19-blue) ![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue) ![Tailwind](https://img.shields.io/badge/Tailwind-4.1-blue)
 
+<img width="1920" height="1080" alt="Screenshot 2026-01-21 at 8 34 24 PM" src="https://github.com/user-attachments/assets/39ddfce9-eb82-4814-b4df-b21089c411f0" />
 
 
+<img width="1920" height="1080" alt="Screenshot 2026-01-21 at 8 34 32 PM" src="https://github.com/user-attachments/assets/3975a4c2-706e-4b32-b7b2-b31b8a181bbd" />
+
+<img width="1920" height="1080" alt="Screenshot 2026-01-21 at 8 34 42 PM (2)" src="https://github.com/user-attachments/assets/207df20a-70a7-44d7-aec9-ecf284658839" />
 
 ## Features
 
