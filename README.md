@@ -1,2 +1,170 @@
-# AIdenChalky
-Chalky AI Challenge
+# 📚 Chalky Library
+
+A children's book library web application built with React, featuring wooden bookshelves, animated clouds, and a friendly animated mascot character.
+
+![Chalky Library](https://img.shields.io/badge/React-19-blue) ![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue) ![Tailwind](https://img.shields.io/badge/Tailwind-4.1-blue)
+
+## Features
+
+- **UI** - Sky gradient with yellow sun glow, floating animated clouds, rolling green hills, and a unified wooden bookcase
+- **Animated Mascot** - Cute purple "Chalky" character with gentle bouncing and waving arm animations
+- **Book Organization** - Books grouped alphabetically on wooden shelves (A-B, C-D-E, F-G-H, etc.)
+- **Search Functionality** - Real-time debounced search with dedicated search results shelf
+- **Expanded View** - Click "See more Books" to see all books in each category
+- **Responsive Design** - Works on mobile, tablet, and desktop
+- **Mock API** - Uses MSW (Mock Service Worker) for realistic API simulation with 150-350ms delays
+
+## 🎨 Design Highlights
+
+| Element | Description |
+|---------|-------------|
+| **Sky** | Bright blue gradient with subtle yellow sun glow in center |
+| **Clouds** | White fluffy clouds with floating animation |
+| **Hills** | Three-layer rolling green hills with depth |
+| **Bookcase** | Unified wooden bookcase with multiple shelves |
+| **Shelf Labels** | Light woody brown/yellowish labels (wheat to burlywood gradient) |
+| **Books** | 4 books per shelf with shadow placeholders for empty slots |
+| **Mascot** | Purple character with glasses, bouncing animation, and waving arm |
+| **Sidebar** | Vertical navigation tabs (Dashboard/Library) |
+
+## 🚀 Quick Start
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+```
+
+## 🛠️ Tech Stack
+
+| Technology | Purpose |
+|------------|---------|
+| React 19 | UI Framework |
+| TypeScript | Type Safety |
+| Tailwind CSS 4 | Styling |
+| Vite | Build Tool |
+| React Router 7 | Navigation |
+| TanStack Query | Data Fetching & Caching |
+| MSW 2 | API Mocking |
+| Lucide React | Icons |
+
+### React Router 7
+Handles client-side navigation and URL management:
+- Switching between **Dashboard** and **Library** tabs
+- URL query parameters for view state:
+  - `/library` → grouped shelves view
+  - `/library?search=wizard` → search results
+  - `/library?group=A-B` → expanded view
+- Browser back/forward buttons work naturally
+- No page reloads when navigating
+
+### TanStack Query
+Handles data fetching, caching, and API state:
+- Fetches books from `/api/v1/books/search` and `/api/v1/books/group`
+- **Automatic caching** — revisiting a shelf uses cached data
+- **Loading states** — `isLoading` for showing skeleton loaders
+- **Request cancellation** — typing fast cancels old requests
+- **Request deduplication** — prevents duplicate API calls
+
+## 📁 Project Structure
+
+```
+src/
+├── api/
+│   └── types.ts              # API response types
+├── components/
+│   ├── layout/
+│   │   ├── Background.tsx    # Sky gradient, sun glow, clouds, grass hills
+│   │   ├── Mascot.tsx        # Animated Chalky character
+│   │   └── Sidebar.tsx       # Navigation tabs
+│   └── library/
+│       ├── BookCard.tsx      # Individual book with hover effects
+│       ├── Bookcase.tsx      # Unified wooden bookcase container
+│       ├── BookGrid.tsx      # Expanded grid view
+│       ├── Bookshelf.tsx     # Single shelf with books
+│       ├── SearchBar.tsx     # Search input
+│       └── SearchResultsShelf.tsx  # Search results display
+├── hooks/
+│   ├── useBooks.ts           # TanStack Query hooks
+│   └── useDebounce.ts        # Debounce utility
+├── lib/
+│   └── shelfConfig.ts        # Shelf groupings (A-B, C-D-E, etc.)
+├── mocks/
+│   ├── browser.ts            # MSW browser setup
+│   ├── handlers.ts           # API mock handlers
+│   └── data/books.ts         # Mock book data (25+ books)
+├── pages/
+│   ├── Dashboard.tsx         # Dashboard placeholder
+│   └── Library.tsx           # Main library (grouped, expanded, search views)
+├── App.tsx                   # Routes
+├── main.tsx                  # Entry point + MSW init
+└── index.css                 # Global styles + animations
+```
+
+## 🎯 Views
+
+| View | URL | Description |
+|------|-----|-------------|
+| **Library Home** | `/library` | Main bookcase with grouped shelves |
+| **Expanded View** | `/library?group=A-B` | Full grid of books for a letter group |
+| **Search Results** | `/library?search=wizard` | Books matching search query |
+
+## 📚 Book Data
+
+The app uses mock book data for development:
+
+- **32 children's books** stored in `src/mocks/data/books.ts`
+- Each book includes: `id`, `title`, `author`, `description`, `cover_image_url`, `lexile_level`
+- **Cover images** sourced from the [Open Library Covers API](https://openlibrary.org/dev/docs/api/covers):
+  ```
+  https://covers.openlibrary.org/b/id/{COVER_ID}-M.jpg
+  ```
+- **MSW (Mock Service Worker)** intercepts API calls and serves mock data with realistic 150-350ms delays
+- To connect a real backend, simply remove MSW — the same `fetch()` calls will work with a real API
+
+## 🎯 API Endpoints (Mocked)
+
+### GET /api/v1/books/search
+Search books by title, author, or prefix.
+
+Query params:
+- `title` - Search term for title
+- `author` - Search term for author
+- `title_prefix` - Array of letter prefixes
+- `page` - Page number (default: 0)
+- `rows_per_page` - Results per page (default: 40)
+- `sort_by` - Sort field (default: 'title')
+- `sort_order` - 'asc' or 'desc'
+
+### GET /api/v1/books/group
+Get books grouped by first letter or author.
+
+Query params:
+- `group_by` - 'title_first_letter' or 'author'
+- `group_size` - Max books per group
+- `page` - Page of groups
+- `groups_per_page` - Groups per page
+
+## 🎬 Animations
+
+| Animation | Element | Description |
+|-----------|---------|-------------|
+| `animate-float` | Clouds | Gentle up/down floating motion |
+| `animate-bounce-gentle` | Mascot | Subtle bouncing effect |
+| `animate-wave` | Mascot arm | Waving motion |
+| `animate-shimmer` | Loading skeletons | Shimmer effect while loading |
+| Hover effects | Books | Scale + shadow on hover |
+
+## 📱 Responsive Breakpoints
+
+| Breakpoint | Screen | Book Columns |
+|------------|--------|--------------|
+| < 640px | Mobile | 1-2 |
+| 640-768px | Tablet Portrait | 2-3 |
+| 768-1024px | Tablet Landscape | 3 |
+| > 1024px | Desktop | 4 |
