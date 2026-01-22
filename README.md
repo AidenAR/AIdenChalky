@@ -134,6 +134,34 @@ The app uses mock book data for development:
 - **MSW (Mock Service Worker)** intercepts API calls and serves mock data with realistic 150-350ms delays
 - To connect a real backend, simply remove MSW — the same `fetch()` calls will work with a real API
 
+## 🔍 How Search Works
+
+The search functionality filters books by **title** using partial, case-insensitive matching:
+
+| Search Term | Matches |
+|-------------|---------|
+| "little" | "The **Little** Prince", "**Little** Women" |
+| "charlie" | "**Charlie** and the Chocolate Factory" |
+| "the" | All books with "the" in the title |
+
+### Search Flow
+```
+User types → Debounce (300ms) → Update URL → TanStack Query fetches → Results displayed
+```
+
+1. **User types** in the search bar
+2. **Debounce** waits 300ms after typing stops (prevents excessive API calls)
+3. **URL updates** to `/library?search=your-term`
+4. **TanStack Query** fetches from `/api/v1/books/search?title=your-term`
+5. **Results** display on a dedicated search results shelf
+
+### Supported Search Fields
+| Field | Match Type | Example |
+|-------|------------|---------|
+| **Title** | Partial, case-insensitive | "wizard" finds books with "wizard" in title |
+| **Author** | Partial, case-insensitive | "dahl" finds books by "Roald Dahl" |
+| **Title Prefix** | Starts with letter(s) | "A" finds books starting with "A" |
+
 ## 🎯 API Endpoints (Mocked)
 
 ### GET /api/v1/books/search
